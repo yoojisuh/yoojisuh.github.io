@@ -1,0 +1,201 @@
+/* Paper and entry lists (see layouts/shortcodes/paper.html and entry.html) */
+
+/* Lists */
+
+.post-content .paper-list {
+    margin-left: 0;
+    padding-inline-start: 2.6em;
+}
+
+.post-content .entry-list {
+    margin-left: 0;
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.post-content .paper-list > li,
+.post-content .entry-list > li {
+    margin: 0 0 1.5em;
+    line-height: 1.55;
+}
+
+.post-content .paper-list > li {
+    padding-left: 0.4em;
+}
+
+.post-content .paper-list > li::marker {
+    color: #6a7ba2;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Title line */
+
+.paper-title,
+.entry-title {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.post-content .paper-title a,
+.post-content .entry-title a {
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.post-content .paper-title a::after,
+.post-content .entry-title a::after {
+    content: " ↗";
+    font-size: 0.8em;
+    color: var(--secondary);
+}
+
+.post-content .paper-title a:hover,
+.post-content .entry-title a:hover {
+    color: #4f607f;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Detail lines */
+
+.paper-authors {
+    margin-top: 0.15em;
+    font-size: 0.95em;
+    color: var(--primary);
+}
+
+.paper-authors strong {
+    font-weight: 700;
+}
+
+.paper-meta,
+.entry-meta {
+    margin-top: 0.1em;
+    font-size: 0.9em;
+    color: var(--secondary);
+}
+
+.entry-desc {
+    margin-top: 0.3em;
+    font-size: 0.95em;
+    color: var(--primary);
+}
+
+.entry-buttons {
+    margin-top: 0.5em;
+}
+
+.post-content .entry-button {
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 0.8em;
+    font-weight: 500;
+    line-height: 1.9;
+    color: #4f607f;
+    background: #f0f2f7;
+    border: 1px solid #cbd1de;
+    border-radius: 3px;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.post-content .entry-button:hover {
+    color: #fff;
+    background: #6a7ba2;
+    border-color: #6a7ba2;
+}
+
+/* Topic tags and filter (see layouts/shortcodes/paper-filter.html) */
+
+.paper-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 0.45em;
+}
+
+.paper-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 var(--content-gap);
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.paper-filter[hidden] {
+    display: none;
+}
+
+.paper-filter-label {
+    margin-right: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--secondary);
+}
+
+.paper-tag {
+    padding: 1px 10px;
+    font: inherit;
+    font-size: 0.78em;
+    line-height: 1.7;
+    color: var(--secondary);
+    background: var(--theme);
+    border: 1px solid var(--tertiary);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.paper-tag:hover {
+    color: #4f607f;
+    border-color: #6a7ba2;
+}
+
+.paper-tag.is-active {
+    color: #fff;
+    background: #6a7ba2;
+    border-color: #6a7ba2;
+}
+
+/* Method tags (methodTags front matter): muted teal, to set them apart from topics */
+
+.paper-tag.is-method {
+    color: #356b60;
+    background: #eef6f4;
+    border-color: #a9cfc6;
+}
+
+.paper-tag.is-method:hover {
+    color: #2b5a50;
+    border-color: #3f7a6e;
+}
+
+.paper-tag.is-method.is-active {
+    color: #fff;
+    background: #3f7a6e;
+    border-color: #3f7a6e;
+}
+
+.paper-tag-count {
+    margin-left: 2px;
+    opacity: 0.65;
+    font-variant-numeric: tabular-nums;
+}
+
+.paper-badge {
+    display: inline-block;
+    margin-left: 0.4em;
+    padding: 0 8px;
+    font-size: 0.8em;
+    font-weight: 500;
+    line-height: 1.7;
+    color: #4f607f;
+    background: #f0f2f7;
+    border: 1px solid #cbd1de;
+    border-radius: 3px;
+}

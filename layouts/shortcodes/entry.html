@@ -1,0 +1,30 @@
+{{- /*
+  One entry, used inside {{< entries >}}. Every parameter except title is optional.
+
+  {{< entry
+    title="Award, course, or position"
+    url="https://..."                    (makes the title a link)
+    subtitle="Organization"
+    date="2026"
+    description="Longer text; *italics* and [links](https://...) allowed"
+    link="/file.pdf"                     (shown as a small button below the description)
+    linktext="Syllabus (PDF)"            (button label; defaults to "Link")
+  >}}
+*/ -}}
+{{- $meta := slice -}}
+{{- with .Get "subtitle" }}{{ $meta = $meta | append (htmlEscape .) }}{{ end -}}
+{{- with .Get "date" }}{{ $meta = $meta | append (htmlEscape .) }}{{ end -}}
+<li class="entry">
+  <div class="entry-title">
+    {{- with .Get "url" }}<a href="{{ . }}">{{ $.Get "title" }}</a>{{ else }}{{ $.Get "title" }}{{ end -}}
+  </div>
+  {{- with $meta }}
+  <div class="entry-meta">{{ delimit . " · " | safeHTML }}</div>
+  {{- end }}
+  {{- with .Get "description" }}
+  <div class="entry-desc">{{ . | markdownify }}</div>
+  {{- end }}
+  {{- with .Get "link" }}
+  <div class="entry-buttons"><a class="entry-button" href="{{ . }}">{{ $.Get "linktext" | default "Link" }}</a></div>
+  {{- end }}
+</li>

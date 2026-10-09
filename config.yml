@@ -1,0 +1,101 @@
+# baseURL: "https://yoojisuh.github.io" 
+baseURL: "http://localhost:1313"
+title: Yoo Ji Suh
+theme: PaperMod
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+pagination:
+  pagerSize: 20
+
+taxonomies:
+    tag: tags
+
+menu:
+    main:
+        - name: About
+          url: about/
+          weight: 1
+        - name: Research
+          url: research/
+          weight: 2
+        - name: Teaching
+          url: teaching/
+          weight: 3
+        - name: Awards & Grants
+          url: awards/
+          weight: 4
+
+
+params:
+    description: "Welcome to Yoo Ji's Personal Website"
+    author: Yoo Ji Suh
+    # googleAnalyticsID: "G-XXXXX"
+    DateFormat: "January 2006"
+    defaultTheme: light
+    hideFooter: false
+    disableThemeToggle: true
+    ShowShareButtons: false
+    ShowReadingTime: false
+    disableSpecial1stPost: true
+    disableAnchoredHeadings: true
+    ShowPostNavLinks: false
+    ShowBreadCrumbs: false
+    ShowCodeCopyButtons: true
+    ShowAllPagesInArchive: false
+    MainSections: ["Research","Teaching"]
+    ShowToc: false
+    disableScrollToTop: true
+    TocOpen: true
+    ShowWordCount: false
+    UseHugoToc: true
+    comments: false
+    math: true
+    profileMode:
+          enabled: true
+          title: Yoo Ji Suh (Yooji)
+          subtitle: "I am a Ph.D. candidate in the School of Journalism and Mass Communication at the University of Wisconsin-Madison. My research examines how moral psychology and digital media interact to shape political attitudes and behaviors."
+          imageUrl: "profile_picture.jpg"
+          imageWidth: 156
+          imageHeight: 160
+          buttons:
+            - name: About
+              url: about/
+            - name: Research
+              url: research/
+            - name: Teaching
+              url: teaching/
+            - name: Awards & Grants
+              url: awards/
+
+    socialIcons:
+        - name: Email
+          url: mailto:yooji.suh@wisc.edu
+        - name: LinkedIn
+          url: https://www.linkedin.com/in/yooji-suh/
+        - name: Google Scholar
+          url: https://scholar.google.com/citations?user=E7Z1IboAAAAJ&hl=en
+        - name: GitHub
+          url: https://github.com/yoojisuh
+
+    assets:
+        disableScrollBarStyle: true
+    cover:
+        hiddenInList: false
+        hiddenInSingle: true
+    label:
+      text: "Yoo Ji Suh"
+      icon: favicon.ico
+      iconHeight: 
+
+markup:
+    goldmark:
+        renderer:
+            unsafe: true
+    highlight:
+        guessSyntax: true
+        style: autumn 
+    tableOfContents:
+        endLevel: 3
+        ordered: false
+        startLevel: 2

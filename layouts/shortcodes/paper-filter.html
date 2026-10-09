@@ -1,0 +1,48 @@
+{{- /*
+  Topic filter for the papers on this page. Collects every tags="..." used by {{< paper >}}
+  on the page, so new topics appear automatically. Topics follow the page's tagOrder front
+  matter; any topic not listed there comes after, most-used first.
+
+  {{< paper-filter >}}
+*/ -}}
+{{- $counts := dict -}}
+{{- $names := dict -}}
+{{- range findRESubmatch `tags="([^"]*)"` .Page.RawContent -}}
+  {{- range split (index . 1) "," -}}
+    {{- with trim . " " -}}
+      {{- $slug := . | urlize -}}
+      {{- $counts = merge $counts (dict $slug (add (index $counts $slug | default 0) 1)) -}}
+      {{- $names = merge $names (dict $slug .) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $ordered := slice -}}
+{{- $listed := slice -}}
+{{- range .Page.Param "tagOrder" -}}
+  {{- $slug := urlize . -}}
+  {{- with index $counts $slug -}}
+    {{- $ordered = $ordered | append (dict "slug" $slug "name" (index $names $slug) "count" .) -}}
+    {{- $listed = $listed | append $slug -}}
+  {{- end -}}
+{{- end -}}
+{{- $rest := slice -}}
+{{- range $slug, $count := $counts -}}
+  {{- if not (in $listed $slug) -}}
+    {{- $rest = $rest | append (dict "slug" $slug "name" (index $names $slug) "count" $count) -}}
+  {{- end -}}
+{{- end -}}
+{{- with $rest }}{{ $ordered = $ordered | append (sort . "count" "desc") }}{{ end -}}
+{{- $methods := slice -}}
+{{- range .Page.Param "methodTags" }}{{ $methods = $methods | append (urlize .) }}{{ end -}}
+{{- with $ordered }}
+<div class="paper-filter" hidden>
+  <span class="paper-filter-label">Filter by topic</span>
+  <button type="button" class="paper-tag is-active" data-tag="" aria-pressed="true">All</button>
+  {{- range . }}
+  <button type="button" class="paper-tag{{ if in $methods .slug }} is-method{{ end }}" data-tag="{{ .slug }}" aria-pressed="false">{{ .name }} <span class="paper-tag-count">{{ .count }}</span></button>
+  {{- end }}
+</div>
+{{- with resources.Get "js/paper-filter.js" | minify | fingerprint }}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{- end }}
+{{- end }}

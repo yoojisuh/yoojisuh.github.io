@@ -1,0 +1,50 @@
+{{- /*
+  One paper entry, used inside {{< papers >}}. Every parameter except title is optional.
+
+  {{< paper
+    title="Paper title"
+    url="https://doi.org/..."            (makes the title a link)
+    authors="Yoo Ji Suh and Jane Doe"    ("Yoo Ji Suh" is bolded automatically)
+    venue="Journal Name"                 (shown in italics)
+    details="12(3), 45–67"               (volume, pages, "Advance online publication", ...)
+    year="2026"
+    note="Published in Korean"           (small tag; *italics* allowed)
+    tags="Morality, Polarization"        (topic tags, comma-separated; {{< paper-filter >}} picks them up)
+  >}}
+
+  Tags are shown in the order of the page's tagOrder front matter; tags not listed there come last.
+  Tags listed in the page's methodTags front matter get the method color.
+*/ -}}
+{{- $venue := "" -}}
+{{- with .Get "venue" }}{{ $venue = printf "<em>%s</em>" (htmlEscape .) }}{{ end -}}
+{{- with .Get "details" }}{{ if $venue }}{{ $venue = printf "%s, %s" $venue (htmlEscape .) }}{{ else }}{{ $venue = htmlEscape . }}{{ end }}{{ end -}}
+{{- $meta := slice -}}
+{{- with $venue }}{{ $meta = $meta | append . }}{{ end -}}
+{{- with .Get "year" }}{{ $meta = $meta | append (htmlEscape .) }}{{ end -}}
+{{- $tags := slice -}}
+{{- with .Get "tags" }}{{ range split . "," }}{{ with trim . " " }}{{ $tags = $tags | append . }}{{ end }}{{ end }}{{ end -}}
+{{- $sorted := slice -}}
+{{- range .Page.Param "tagOrder" }}{{ $o := urlize . }}{{ range $tags }}{{ if eq (urlize .) $o }}{{ $sorted = $sorted | append . }}{{ end }}{{ end }}{{ end -}}
+{{- range $tags }}{{ if not (in $sorted .) }}{{ $sorted = $sorted | append . }}{{ end }}{{ end -}}
+{{- $tags = $sorted -}}
+{{- $methods := slice -}}
+{{- range .Page.Param "methodTags" }}{{ $methods = $methods | append (urlize .) }}{{ end -}}
+<li class="paper"{{ with $tags }} data-tags="{{ range $i, $t := . }}{{ if $i }} {{ end }}{{ $t | urlize }}{{ end }}"{{ end }}>
+  <div class="paper-title">
+    {{- with .Get "url" }}<a href="{{ . }}">{{ $.Get "title" }}</a>{{ else }}{{ $.Get "title" }}{{ end -}}
+  </div>
+  {{- with .Get "authors" }}
+  <div class="paper-authors">{{ replace (htmlEscape .) "Yoo Ji Suh" "<strong>Yoo Ji Suh</strong>" | safeHTML }}</div>
+  {{- end }}
+  {{- if or $meta (.Get "note") }}
+  <div class="paper-meta">
+    {{- delimit $meta " · " | safeHTML -}}
+    {{- with .Get "note" }} <span class="paper-badge">{{ . | markdownify }}</span>{{ end -}}
+  </div>
+  {{- end }}
+  {{- with $tags }}
+  <div class="paper-tags">
+    {{- range . }}<button type="button" class="paper-tag{{ if in $methods (urlize .) }} is-method{{ end }}" data-tag="{{ . | urlize }}">{{ . }}</button>{{ end -}}
+  </div>
+  {{- end }}
+</li>

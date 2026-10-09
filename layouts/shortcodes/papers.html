@@ -1,0 +1,11 @@
+{{- /*
+  Numbered list of papers. Numbers update automatically as entries are added or removed.
+  Use reversed="true" to count down (newest = highest number).
+
+  {{< papers reversed="true" >}}
+    {{< paper ... >}}
+  {{< /papers >}}
+*/ -}}
+<ol class="paper-list"{{ if eq (.Get "reversed") "true" }} reversed{{ end }}>
+{{ .Inner }}
+</ol>

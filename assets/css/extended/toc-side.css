@@ -1,0 +1,78 @@
+/* Table of contents in the left margin on wide screens (see layouts/_default/list.html).
+   Below 1280px there is no room beside the 720px column, so it stays above the content. */
+
+@media (min-width: 1280px) {
+    .toc-layout {
+        position: relative;
+    }
+
+    .toc-side {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: calc(100% + 36px);
+        width: 220px;
+    }
+
+    .toc-side .toc {
+        position: sticky;
+        top: var(--gap);
+        max-height: calc(100vh - var(--gap) * 2);
+        overflow-y: auto;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: none;
+    }
+
+    .toc-side .toc details summary {
+        margin-inline-start: 0;
+        cursor: default;
+        pointer-events: none;
+        list-style: none;
+    }
+
+    .toc-side .toc details summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .toc-side .toc .details {
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        color: var(--secondary);
+    }
+
+    .toc-side .toc .inner {
+        margin: 10px 0 0;
+        padding: 0;
+        font-size: 14px;
+        line-height: 1.45;
+        opacity: 1;
+    }
+
+    .toc-side .toc ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .toc-side .toc li {
+        margin: 0 0 8px;
+    }
+
+    .toc-side .toc li ul {
+        margin: 8px 0 0 12px;
+        padding-left: 10px;
+        border-left: 1px solid var(--border);
+    }
+
+    .toc-side .toc a {
+        color: var(--secondary);
+        box-shadow: none;
+    }
+
+    .toc-side .toc a:hover {
+        color: var(--primary);
+        box-shadow: none;
+    }
+}

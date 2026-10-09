@@ -1,0 +1,10 @@
+# Hugo build artifacts
+public/
+resources/
+.hugo_build.lock
+
+# Unused files, kept locally only
+archive/
+
+# macOS folder metadata
+.DS_Store
